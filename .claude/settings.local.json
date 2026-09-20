@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -)",
+      "PowerShell(wsl -d Ubuntu-24.04 --% bash -lc \"cd ~/projects/week1 && ~/projects/week1/.venv/bin/python .claude/skills/market-snapshot/scripts/market_summary.py\")"
+    ]
+  }
+}

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apple Design — Slide Reference Kit</title>
+<!--
+  ============================================================================
+  Apple Design System → Presentation Slide Reference Kit
+  ----------------------------------------------------------------------------
+  Source spec : DESIGN-apple.md (Apple-design-analysis, alpha)
+  Purpose     : 이후 HTML 슬라이드 / PPTX 생성을 위한 레퍼런스 모음집
+  Canvas      : 1280 x 720 px (16:9). PPTX 13.333in x 7.5in = 96 DPI 1:1 매핑.
+  Font        : Arial (주 폰트). SF Pro 대체. 디스플레이 사이즈에서 음수 자간 유지.
+  ----------------------------------------------------------------------------
+  원본 웹 스펙에서 의도적으로 조정한 부분 (슬라이드 목적에 맞춤):
+   1) 타이포 스케일 +20~25% 상향. 웹 본문 17px → 슬라이드 본문 20px.
+      (1280px 캔버스를 스크린/빔프로젝터에서 축소 투사하므로)
+   2) 섹션 패딩 80px → 좌우 88px / 상하 64px. 화면비가 고정이라 세로 여백을 압축.
+   3) 웹은 "타일 1개 = 1뷰포트"이지만 슬라이드는 설명이 목적이므로
+      한 장에 헤드라인 + 리드 + 본문 블록까지 담는 밀도를 허용.
+   4) 슬라이드 하단 러너(섹션명/페이지번호)를 추가. 웹 스펙에는 없는 요소.
+   5) eyebrow(소제목 라벨)에 대문자 + 양수 자간 사용. 웹 스펙 이탈이나
+      슬라이드에서는 계층 구분을 위해 필요.
+  유지한 원칙:
+   - 단일 액센트 #0066cc. 두 번째 브랜드 컬러 없음.
+   - 그림자는 제품/이미지 영역에만 1종. 카드·버튼·텍스트에 그림자 금지.
+   - 라이트 ↔ 다크 면 전환이 곧 구분선. 장식 테두리·그라디언트 없음.
+   - 굵기 사다리 300 / 400 / 600 / 700. 500 미사용.
+   - pill radius는 "액션"을 뜻하는 신호로만 사용.
+  ============================================================================
+-->
+<style>
+/* ============================================================
+   1. TOKENS
+   ============================================================ */
+:root{
+  /* --- color: brand & accent --- */
+  --primary:#0066cc;          /* Action Blue — 모든 인터랙티브/강조 */
+  --primary-focus:#0071e3;    /* Focus ring */
+  --primary-on-dark:#2997ff;  /* 다크 면 위의 링크/강조 */
+
+  /* --- color: text --- */
+  --ink:#1d1d1f;
+  --ink-muted-80:#333333;
+  --ink-muted-48:#7a7a7a;
+  --on-dark:#ffffff;
+  --body-muted:#cccccc;
+
+  /* --- color: surface --- */
+  --canvas:#ffffff;
+  --parchment:#f5f5f7;
+  --pearl:#fafafc;
+  --tile-1:#272729;
+  --tile-2:#2a2a2c;
+  --tile-3:#252527;
+  --black:#000000;
+  --chip:#d2d2d7;
+
+  /* --- color: line --- */
+  --divider-soft:#f0f0f0;
+  --hairline:#e0e0e0;
+  --hairline-on-dark:rgba(255,255,255,.16);
+
+  /* --- radius --- */
+  --r-xs:5px; --r-sm:8px; --r-md:11px; --r-lg:18px; --r-pill:9999px;
+
+  /* --- spacing --- */
+  --s-xxs:4px; --s-xs:8px; --s-sm:12px; --s-md:17px;
+  --s-lg:24px; --s-xl:32px; --s-xxl:48px; --s-section:64px;
+
+  /* --- slide geometry --- */
+  --slide-w:1280px; --slide-h:720px;
+  --pad-x:88px; --pad-y:64px;
+
+  /* --- the one and only shadow (제품/이미지 전용) --- */
+  --shadow-product:rgba(0,0,0,.22) 3px 5px 30px 0;
+
+  /* --- font --- */
+  --font:Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+/* ============================================================
+   2. SLIDE TYPE SCALE  (웹 토큰 → 슬라이드 환산)
+   web hero-display 56 → slide-hero 60
+   web display-lg   40 → slide-title 44
+   web lead         28 → slide-lead 26
+   web body         17 → slide-body 20
+   web caption      14 → slide-caption 15
+   ============================================================ */
+.t-hero    {font-size:60px; font-weight:600; line-height:1.06; letter-spacing:-1.4px;}
+.t-title   {font-size:44px; font-weight:600; line-height:1.12; letter-spacing:-1.0px;}
+.t-section {font-size:52px; font-weight:600; line-height:1.08; letter-spacing:-1.2px;}
+.t-sub     {font-size:30px; font-weight:600; line-height:1.24; letter-spacing:-0.6px;}
+.t-lead    {font-size:26px; font-weight:400; line-height:1.34; letter-spacing:-0.3px;}
+.t-airy    {font-size:24px; font-weight:300; line-height:1.5; letter-spacing:0;}
+.t-tagline {font-size:21px; font-weight:600; line-height:1.24; letter-spacing:-0.2px;}
+.t-body    {font-size:20px; font-weight:400; line-height:1.5; letter-spacing:-0.3px;}
+.t-strong  {font-size:20px; font-weight:600; line-height:1.4; letter-spacing:-0.3px;}
+.t-caption {font-size:15px; font-weight:400; line-height:1.45; letter-spacing:-0.2px;}
+.t-capstr  {font-size:15px; font-weight:600; line-height:1.3; letter-spacing:-0.2px;}
+.t-fine    {font-size:13px; font-weight:400; line-height:1.3; letter-spacing:-0.12px;}
+.t-eyebrow {font-size:14px; font-weight:600; line-height:1; letter-spacing:1.6px; text-transform:uppercase;}
+
+/* ============================================================
+   3. PAGE CHROME (레퍼런스 문서 전용 — 슬라이드 산출물에는 불포함)
+   ============================================================ */
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--font);
+  background:#e8e8ed;
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+.doc-head{
+  max-width:var(--slide-w); margin:0 auto; padding:56px 0 8px;
+}
+.doc-head h1{font-size:40px;font-weight:600;letter-spacing:-1px;margin:0 0 12px;}
+.doc-head p{font-size:17px;line-height:1.6;color:var(--ink-muted-80);margin:0 0 6px;max-width:840px;}
+.doc-head code{background:#fff;padding:2px 7px;border-radius:var(--r-xs);font-size:14px;}
+
+.spec{
+  max-width:var(--slide-w); margin:44px auto 10px;
+  display:flex; align-items:flex-start; gap:14px;
+}
+.spec .no{
+  flex:none; width:34px; height:34px; border-radius:var(--r-pill);
+  background:var(--ink); color:#fff; font-size:14px; font-weight:600;
+  display:flex; align-items:center; justify-content:center;
+}
+.spec .txt h3{margin:6px 0 4px; font-size:19px; font-weight:600; letter-spacing:-.3px;}
+.spec .txt p{margin:0; font-size:14px; line-height:1.55; color:var(--ink-muted-80); max-width:1000px;}
+.spec .txt p b{font-weight:600; color:var(--ink);}
+
+/* ============================================================
+   4. SLIDE FRAME
+   ============================================================ */
+.slide{
+  position:relative;
+  width:var(--slide-w); height:var(--slide-h);
+  margin:0 auto 12px;
+  overflow:hidden;
+  background:var(--canvas); color:var(--ink);
+  display:flex; flex-direction:column;
+}
+.slide--parchment{background:var(--parchment);}
+.slide--pearl{background:var(--pearl);}
+.slide--dark  {background:var(--tile-1); color:var(--on-dark);}
+.slide--dark2 {background:var(--tile-2); color:var(--on-dark);}
+.slide--dark3 {background:var(--tile-3); color:var(--on-dark);}
+.slide--black {background:var(--black);  color:var(--on-dark);}
+
+/* 본문 영역: 좌우 88 / 상하 64 */
+.stage{
+  flex:1 1 auto; min-height:0;
+  padding:var(--pad-y) var(--pad-x);
+  display:flex; flex-direction:column;
+}
+.stage--bleed{padding:0;}
+.stage--center{align-items:center; justify-content:center; text-align:center;}
+.stage--mid{justify-content:center;}
+
+/* 하단 러너 — 섹션명 + 페이지 번호 */
+.runner{
+  flex:none; height:56px; padding:0 var(--pad-x);
+  display:flex; align-items:center; justify-content:space-between;
+  border-top:1px solid var(--hairline);
+  color:var(--ink-muted-48);
+  font-size:13px; letter-spacing:-.12px;
+}
+.slide--dark .runner,.slide--dark2 .runner,.slide--dark3 .runner,.slide--black .runner{
+  border-top-color:var(--hairline-on-dark); color:var(--body-muted);
+}
+.runner .pg{font-weight:600; color:var(--ink-muted-80);}
+.slide--dark .runner .pg{color:#fff;}
+
+/* ============================================================
+   5. PRIMITIVES
+   ============================================================ */
+.eyebrow{color:var(--primary); margin:0 0 20px;}
+.slide--dark .eyebrow,.slide--dark2 .eyebrow,.slide--dark3 .eyebrow,.slide--black .eyebrow{color:var(--primary-on-dark);}
+.muted{color:var(--ink-muted-48);}
+.slide--dark .muted,.slide--dark2 .muted,.slide--dark3 .muted,.slide--black .muted{color:var(--body-muted);}
+.accent{color:var(--primary);}
+.slide--dark .accent,.slide--dark2 .accent,.slide--dark3 .accent,.slide--black .accent{color:var(--primary-on-dark);}
+h1,h2,h3,h4,p,ul,ol{margin:0;}
+.mt-xs{margin-top:var(--s-xs);} .mt-sm{margin-top:var(--s-sm);}
+.mt-md{margin-top:var(--s-md);} .mt-lg{margin-top:var(--s-lg);}
+.mt-xl{margin-top:var(--s-xl);} .mt-xxl{margin-top:var(--s-xxl);}
+
+/* 헤드라인 아래 짧은 액센트 룰 — 웹 스펙엔 없으나 슬라이드 제목 앵커로 사용 */
+.rule{width:56px; height:3px; background:var(--primary); border:0; margin:0 0 var(--s-lg);}
+.slide--dark .rule{background:var(--primary-on-dark);}
+
+/* 버튼 문법 2종: pill(액션) / sm rect(유틸) */
+.btn{display:inline-flex; align-items:center; justify-content:center;
+     font-family:var(--font); border:0; cursor:default; white-space:nowrap;}
+.btn-primary{background:var(--primary); color:#fff; border-radius:var(--r-pill);
+             padding:12px 24px; font-size:18px; font-weight:400; letter-spacing:-.3px;}
+.btn-ghost{background:transparent; color:var(--primary); border:1px solid var(--primary);
+           border-radius:var(--r-pill); padding:11px 23px; font-size:18px; letter-spacing:-.3px;}
+.slide--dark .btn-ghost{color:var(--primary-on-dark); border-color:var(--primary-on-dark);}
+.btn-hero{background:var(--primary); color:#fff; border-radius:var(--r-pill);
+          padding:16px 32px; font-size:19px; font-weight:300;}
+.btn-utility{background:var(--ink); color:#fff; border-radius:var(--r-sm);
+             padding:9px 16px; font-size:15px;}
+.btn-pearl{background:var(--pearl); color:var(--ink-muted-80); border:3px solid var(--divider-soft);
+           border-radius:var(--r-md); padding:9px 16px; font-size:15px;}
+.btn-circle{width:44px;height:44px;border-radius:var(--r-pill);
+            background:rgba(210,210,215,.64); color:var(--ink); font-size:16px;}
+
+/* 카드 — hairline 1px, radius 18, 그림자 없음 */
+.card{background:var(--canvas); border:1px solid var(--hairline);
+      border-radius:var(--r-lg); padding:var(--s-lg);}
+.slide--dark .card{background:var(--tile-2); border-color:var(--hairline-on-dark);}
+.card-thumb{border-radius:var(--r-sm); background:var(--parchment); width:100%;
+            display:flex; align-items:center; justify-content:center; color:var(--ink-muted-48);}
+
+/* chip / pill */
+.chip{display:inline-flex; align-items:center; gap:8px;
+      background:var(--canvas); border:1px solid var(--hairline);
+      border-radius:var(--r-pill); padding:12px 18px; font-size:15px;}
+.chip--selected{border:2px solid var(--primary-focus); padding:11px 17px;}
+
+/* 이미지/제품 플레이스홀더 — 시스템 내 유일한 그림자가 붙는 자리 */
+.figure{background:var(--parchment); border-radius:var(--r-sm);
+        box-shadow:var(--shadow-product);
+        display:flex; align-items:center; justify-content:center;
+        color:var(--ink-muted-48); font-size:15px; text-align:center;}
+.slide--dark .figure{background:var(--tile-3); color:var(--body-muted);}
+
+/* 리스트 — 불릿은 액센트 점, 들여쓰기 고정 */
+.list{list-style:none; padding:0;}
+.list li{position:relative; padding-left:26px; margin-bottom:var(--s-md);}
+.list li:last-child{margin-bottom:0;}
+.list li::before{content:""; position:absolute; left:0; top:11px;
+                 width:7px; height:7px; border-radius:var(--r-pill); background:var(--primary);}
+.slide--dark .list li::before{background:var(--primary-on-dark);}
+/* Don't 열 — 색을 추가하지 않고 빈 회색 원으로만 대비 */
+.list--dont li::before{background:transparent; border:2px solid var(--hairline);
+                       width:9px; height:9px; top:10px;}
+.list--num{counter-reset:n;}
+.list--num li{padding-left:44px; counter-increment:n;}
+.list--num li::before{content:counter(n); width:28px; height:28px; top:2px;
+  background:var(--primary); color:#fff; font-size:14px; font-weight:600;
+  display:flex; align-items:center; justify-content:center; border-radius:var(--r-pill);}
+
+/* grid helpers */
+.grid{display:grid; gap:var(--s-lg);}
+.g2{grid-template-columns:repeat(2,1fr);}
+.g3{grid-template-columns:repeat(3,1fr);}
+.g4{grid-template-columns:repeat(4,1fr);}
+.split{display:grid; grid-template-columns:1fr 1fr; gap:var(--s-xxl); flex:1; min-height:0; align-items:center;}
+.split--55{grid-template-columns:1.15fr 1fr;}
+.split--37{grid-template-columns:.8fr 1.2fr;}
+
+/* table — 가로 헤어라인만. 세로선·줄무늬 없음 */
+.tbl{width:100%; border-collapse:collapse; font-size:18px;}
+.tbl th{text-align:left; font-weight:600; font-size:15px; letter-spacing:.4px;
+        text-transform:uppercase; color:var(--ink-muted-48);
+        padding:0 16px 14px 0; border-bottom:1px solid var(--ink);}
+.tbl td{padding:18px 16px 18px 0; border-bottom:1px solid var(--hairline); letter-spacing:-.3px;}
+.tbl tr:last-child td{border-bottom:0;}
+.tbl .num{font-variant-numeric:tabular-nums; text-align:right; padding-right:0;}
+.tbl th.num{text-align:right; padding-right:0;}
+
+/* stat */
+.stat .v{font-size:56px; font-weight:600; letter-spacing:-1.6px; line-height:1; color:var(--primary);}
+.slide--dark .stat .v{color:var(--primary-on-dark);}
+.stat .k{margin-top:12px;}
+
+/* swatch (토큰 레퍼런스 슬라이드용) */
+.sw{border-radius:var(--r-sm); height:64px; border:1px solid var(--divider-soft);}
+.sw-row{font-size:13px; line-height:1.45; margin-top:10px; color:var(--ink-muted-80);}
+.sw-row b{display:block; font-size:14px; color:var(--ink);}
+
+/* 진행 표시 점 — 섹션 구분 슬라이드용 */
+.dots{display:flex; gap:10px; align-items:center;}
+.dots i{width:9px;height:9px;border-radius:var(--r-pill);background:rgba(255,255,255,.28);display:block;}
+.dots i.on{background:var(--primary-on-dark); width:28px;}
+
+/* ============================================================
+   6. PRINT / PDF — 1슬라이드 = 1페이지
+   ============================================================ */
+@page{size:1280px 720px; margin:0;}
+@media print{
+  body{background:#fff;}
+  .doc-head,.spec{display:none !important;}
+  .slide{margin:0; page-break-after:always; break-after:page; box-shadow:none;}
+}
+@media screen{
+  .slide{box-shadow:0 1px 3px rgba(0,0,0,.10);}
+}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <h1>Apple Design — Slide Reference Kit</h1>
+  <p>캔버스 <code>1280 × 720px</code> (16:9) · 주 폰트 <code>Arial</code> · 단일 액센트 <code>#0066cc</code>.
+     각 슬라이드는 이후 HTML 덱이나 PPTX를 만들 때 그대로 복사해 쓰는 레이아웃 원형입니다.
+     슬라이드 위의 회색 설명 블록은 레퍼런스용이며 인쇄(PDF) 시 자동으로 빠집니다.</p>
+  <p>PPTX 환산: 1280 × 720px = 13.333 × 7.5in (96 DPI). px 값을 96으로 나누면 인치,
+     혹은 <code>×9525</code> 하면 EMU입니다. 좌우 여백 88px ≈ 0.917in, 상하 64px ≈ 0.667in.</p>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     01. TITLE — 표지
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">01</div><div class="txt">
+  <h3>타이틀 / 표지</h3>
+  <p>화이트 캔버스 + 좌측 정렬 히어로. 웹 스펙의 중앙 정렬 히어로를 슬라이드에서는 <b>좌측 정렬</b>로 바꿨습니다 —
+     제목이 길어져도 무게중심이 흔들리지 않고, 발표자/날짜 메타를 아래쪽에 안정적으로 붙일 수 있습니다.
+     제목은 <b>60px / 600 / 자간 −1.4px</b>, 부제는 26px / 400. 표지에는 러너(페이지 번호)를 넣지 않습니다.</p>
+</div></section>
+
+<div class="slide">
+  <div class="stage" style="justify-content:space-between;">
+    <div>
+      <p class="t-eyebrow eyebrow">Design System Reference</p>
+      <h1 class="t-hero" style="max-width:900px;">제품이 말하게 하는<br>인터페이스 설계</h1>
+      <p class="t-lead muted mt-lg" style="max-width:720px;">
+        UI가 물러나고 콘텐츠가 앞으로 나오는 화면 문법 —
+        면 전환, 단일 액센트, 하나의 그림자로 구성한 디자인 언어.
+      </p>
+    </div>
+    <div style="display:flex; align-items:flex-end; justify-content:space-between;">
+      <div>
+        <p class="t-capstr">디자인 시스템 팀</p>
+        <p class="t-caption muted mt-xs">2026년 9월 20일 · v1.0</p>
+      </div>
+      <div style="width:120px; height:3px; background:var(--primary);"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     02. AGENDA — 목차
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">02</div><div class="txt">
+  <h3>목차 / 아젠다</h3>
+  <p>parchment(<b>#f5f5f7</b>) 캔버스로 표지와 구분합니다. 번호는 pill 형태 액센트 배지 —
+     시스템상 pill은 "액션"의 신호지만, 목차 번호는 예외적으로 허용되는 용례입니다(내비게이션 성격).
+     항목은 <b>2열 × 3행</b>. 6개를 넘어가면 글자를 줄이지 말고 목차 슬라이드를 2장으로 나누세요.</p>
+</div></section>
+
+<div class="slide slide--parchment">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">Agenda</p>
+    <h2 class="t-title">오늘 다루는 것</h2>
+    <hr class="rule mt-lg">
+    <div class="grid g2 mt-lg" style="gap:32px 64px; row-gap:34px;">
+      <div style="display:flex; gap:20px;">
+        <span class="t-tagline accent" style="min-width:34px;">01</span>
+        <div><p class="t-strong">설계 원칙</p><p class="t-caption muted mt-xs">면 전환이 곧 구분선이 되는 이유</p></div>
+      </div>
+      <div style="display:flex; gap:20px;">
+        <span class="t-tagline accent" style="min-width:34px;">04</span>
+        <div><p class="t-strong">컴포넌트</p><p class="t-caption muted mt-xs">버튼 2종, 카드, 칩, 입력</p></div>
+      </div>
+      <div style="display:flex; gap:20px;">
+        <span class="t-tagline accent" style="min-width:34px;">02</span>
+        <div><p class="t-strong">컬러</p><p class="t-caption muted mt-xs">단일 액센트와 4단계 표면</p></div>
+      </div>
+      <div style="display:flex; gap:20px;">
+        <span class="t-tagline accent" style="min-width:34px;">05</span>
+        <div><p class="t-strong">깊이와 그림자</p><p class="t-caption muted mt-xs">시스템 전체에 그림자는 하나</p></div>
+      </div>
+      <div style="display:flex; gap:20px;">
+        <span class="t-tagline accent" style="min-width:34px;">03</span>
+        <div><p class="t-strong">타이포그래피</p><p class="t-caption muted mt-xs">음수 자간과 300/400/600/700</p></div>
+      </div>
+      <div style="display:flex; gap:20px;">
+        <span class="t-tagline accent" style="min-width:34px;">06</span>
+        <div><p class="t-strong">적용 가이드</p><p class="t-caption muted mt-xs">해야 할 것과 하지 말 것</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="runner"><span>Apple Design Reference</span><span class="pg">02</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     03. SECTION DIVIDER — 챕터 구분
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">03</div><div class="txt">
+  <h3>섹션 구분 (다크 타일)</h3>
+  <p>이 시스템에서 <b>구분선은 면의 색 변화</b> 그 자체입니다. 챕터가 바뀔 때 라이트 → 다크로 넘기면
+     별도의 장식 없이 리듬이 생깁니다. 다크 면에서 링크·액센트는 <b>#2997ff</b>(Sky Link Blue)로 바꿉니다 —
+     #0066cc는 어두운 배경에서 묻힙니다. 큰 숫자 + 제목 + 한 줄 요약, 그 이상은 넣지 않습니다.</p>
+</div></section>
+
+<div class="slide slide--dark">
+  <div class="stage stage--mid">
+    <div style="display:flex; align-items:baseline; gap:28px;">
+      <span style="font-size:140px; font-weight:600; letter-spacing:-6px; line-height:.86; color:rgba(255,255,255,.18);">02</span>
+      <div>
+        <p class="t-eyebrow eyebrow">Section</p>
+        <h2 class="t-section mt-sm">컬러 시스템</h2>
+      </div>
+    </div>
+    <p class="t-lead mt-xl" style="max-width:660px; color:var(--body-muted);">
+      하나의 파란색이 모든 상호작용을 책임집니다. 나머지는 흰색, 오프화이트, 그리고 검정에 가까운 회색뿐입니다.
+    </p>
+    <div class="dots mt-xxl"><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="runner"><span>Apple Design Reference</span><span class="pg">03</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     04. CONTENT — 기본 본문 (제목 + 리드 + 불릿)
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">04</div><div class="txt">
+  <h3>기본 본문 — 제목 + 리드 + 불릿</h3>
+  <p>가장 많이 쓸 형태. <b>제목 44px → 액센트 룰 → 리드 26px → 불릿 20px</b>의 수직 리듬이 고정입니다.
+     불릿은 최대 5개, 한 항목 2줄 이내. 불릿 점은 7px 원형 액센트로, 텍스트 첫 줄 중앙(top:11px)에 정렬됩니다.
+     본문 폭은 <b>860px 이하</b>로 제한 — 1280px를 꽉 채우면 한 줄이 너무 길어 읽는 속도가 떨어집니다.</p>
+</div></section>
+
+<div class="slide">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">Principles</p>
+    <h2 class="t-title">UI는 물러나고 콘텐츠가 말한다</h2>
+    <hr class="rule mt-lg">
+    <p class="t-lead mt-xs" style="max-width:880px;">
+      장식적인 요소를 제거할수록 콘텐츠의 존재감이 커집니다. 이 시스템이 금지하는 것들의 목록은
+      허용하는 것들의 목록보다 깁니다.
+    </p>
+    <ul class="list t-body mt-xl" style="max-width:900px;">
+      <li>섹션 구분에 선이나 박스를 쓰지 않습니다. <b>면의 색이 바뀌는 것</b>이 구분입니다.</li>
+      <li>액센트 컬러는 하나뿐입니다. 두 번째 브랜드 컬러를 도입하는 순간 "클릭 가능"이라는 신호가 희석됩니다.</li>
+      <li>그림자는 이미지가 표면 위에 놓였다는 물리적 사실을 표현할 때만 씁니다. 카드·버튼·텍스트에는 없습니다.</li>
+      <li>그라디언트는 쓰지 않습니다. 분위기는 사진이 만들고, CSS는 만들지 않습니다.</li>
+      <li>강조가 필요하면 먼저 <b>면을 바꾸세요.</b> 테두리나 색을 더하는 것은 그다음입니다.</li>
+    </ul>
+  </div>
+  <div class="runner"><span>01 · 설계 원칙</span><span class="pg">04</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     05. SPLIT — 텍스트 + 비주얼 2단
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">05</div><div class="txt">
+  <h3>2단 분할 — 설명 + 비주얼</h3>
+  <p>좌측 텍스트 : 우측 이미지 = <b>1.15 : 1</b>, 간격 48px. 이미지 자리에는 시스템의
+     <b>유일한 그림자</b>(<code>rgba(0,0,0,.22) 3px 5px 30px</code>)가 붙습니다. 좌우를 바꿔도 되지만
+     한 덱 안에서는 방향을 일관되게 유지하세요. 이미지 캡션은 15px, ink-muted-48.</p>
+</div></section>
+
+<div class="slide slide--parchment">
+  <div class="stage">
+    <div class="split split--55">
+      <div>
+        <p class="t-eyebrow eyebrow">Elevation</p>
+        <h2 class="t-title">그림자는 하나면 충분하다</h2>
+        <hr class="rule mt-lg">
+        <p class="t-body" style="max-width:520px;">
+          이 시스템에는 그림자 토큰이 단 하나 있습니다. 그리고 그것은 UI 계층을 만들기 위한 것이 아니라,
+          이미지가 표면 위에 실제로 놓여 있다는 <b>무게감</b>을 주기 위한 것입니다.
+        </p>
+        <p class="t-body mt-lg" style="max-width:520px;">
+          카드가 떠 보여야 한다면 그림자 대신 1px 헤어라인을, 바가 떠 있어야 한다면
+          backdrop-blur를 씁니다.
+        </p>
+        <div class="mt-xl" style="display:flex; gap:12px;">
+          <span class="btn btn-primary">자세히 보기</span>
+          <span class="btn btn-ghost">토큰 문서</span>
+        </div>
+      </div>
+      <div>
+        <div class="figure" style="height:400px;">이미지 / 제품 렌더<br>468 × 400</div>
+        <p class="t-caption muted mt-sm">그림자가 허용되는 유일한 자리. 배경과 이미지 사이에 테두리를 두지 않습니다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="runner"><span>05 · 깊이와 그림자</span><span class="pg">05</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     06. CARD GRID — 3열 카드
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">06</div><div class="txt">
+  <h3>3열 카드 그리드</h3>
+  <p>카드는 <b>흰 배경 + 1px #e0e0e0 헤어라인 + radius 18px + 패딩 24px</b>. 그림자는 없습니다.
+     카드 안 썸네일은 radius 8px(내부 이미지 문법). 3열이 기본이고, 항목이 4개면 4열,
+     6개면 3열×2행으로 갑니다. 5열 이상은 슬라이드에서 글자가 작아져 권장하지 않습니다.</p>
+</div></section>
+
+<div class="slide">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">Components</p>
+    <h2 class="t-title">세 가지 컨테이너 문법</h2>
+    <hr class="rule mt-lg">
+    <div class="grid g3 mt-lg" style="flex:1; align-content:center;">
+      <div class="card">
+        <div class="card-thumb" style="height:132px; font-size:14px;">1:1 썸네일</div>
+        <p class="t-strong mt-md">유틸리티 카드</p>
+        <p class="t-caption muted mt-xs">radius 18px · 헤어라인 1px · 패딩 24px. 목록·그리드의 기본 단위.</p>
+        <p class="t-caption accent mt-md">사양 보기 →</p>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="height:132px; font-size:14px;">1:1 썸네일</div>
+        <p class="t-strong mt-md">풀블리드 타일</p>
+        <p class="t-caption muted mt-xs">radius 0 · 화면 끝까지. 색이 바뀌는 지점이 섹션 경계가 됩니다.</p>
+        <p class="t-caption accent mt-md">사양 보기 →</p>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="height:132px; font-size:14px;">1:1 썸네일</div>
+        <p class="t-strong mt-md">옵션 칩</p>
+        <p class="t-caption muted mt-xs">pill · 선택 시 2px #0071e3 테두리. 한 행에 4~5개까지.</p>
+        <p class="t-caption accent mt-md">사양 보기 →</p>
+      </div>
+    </div>
+  </div>
+  <div class="runner"><span>04 · 컴포넌트</span><span class="pg">06</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     07. STATS — 수치 강조
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">07</div><div class="txt">
+  <h3>수치 강조 (KPI 행)</h3>
+  <p>숫자는 <b>56px / 600 / 자간 −1.6px</b>에 액센트 컬러를 씁니다. 이 시스템에서 색으로 강조하는 것은
+     인터랙티브 요소가 원칙이지만, 수치는 "읽는 사람이 가져가야 할 한 가지"라는 점에서 예외를 둡니다.
+     한 슬라이드에 <b>3~4개</b>까지. 항목 사이는 세로 헤어라인 대신 여백으로 구분합니다.</p>
+</div></section>
+
+<div class="slide slide--pearl">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">By the numbers</p>
+    <h2 class="t-title">시스템의 규모</h2>
+    <hr class="rule mt-lg">
+    <div class="grid g4 mt-xl" style="gap:40px;">
+      <div class="stat"><p class="v">1</p><p class="k t-strong">그림자 토큰</p><p class="t-caption muted mt-xs">제품 이미지 전용</p></div>
+      <div class="stat"><p class="v">4</p><p class="k t-strong">굵기 단계</p><p class="t-caption muted mt-xs">300 / 400 / 600 / 700</p></div>
+      <div class="stat"><p class="v">15</p><p class="k t-strong">타이포 토큰</p><p class="t-caption muted mt-xs">10px ~ 56px</p></div>
+      <div class="stat"><p class="v">0</p><p class="k t-strong">그라디언트</p><p class="t-caption muted mt-xs">분위기는 사진이 만든다</p></div>
+    </div>
+    <div class="mt-xxl" style="border-top:1px solid var(--hairline); padding-top:24px;">
+      <p class="t-caption muted" style="max-width:860px;">
+        숫자 아래 라벨은 20px / 600, 보조 설명은 15px / 400. 세 줄 구조를 모든 항목에서 동일하게 유지하면
+        높이가 자동으로 맞아 별도 정렬이 필요 없습니다.
+      </p>
+    </div>
+  </div>
+  <div class="runner"><span>개요</span><span class="pg">07</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     08. TABLE — 표
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">08</div><div class="txt">
+  <h3>표 — 가로 헤어라인만</h3>
+  <p>세로 괘선, 줄무늬 배경, 셀 테두리를 쓰지 않습니다. 헤더는 <b>15px 대문자 + ink-muted-48 + 하단 1px 잉크 라인</b>,
+     각 행은 하단 <b>1px #e0e0e0</b>. 숫자 열은 우측 정렬 + <code>tabular-nums</code>.
+     행 높이는 상하 18px 패딩으로 약 55px — 슬라이드에서는 <b>7행 이내</b>가 읽기 한계입니다.</p>
+</div></section>
+
+<div class="slide">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">Typography</p>
+    <h2 class="t-title">타이포 스케일</h2>
+    <hr class="rule mt-lg">
+    <table class="tbl mt-md">
+      <thead><tr>
+        <th style="width:26%;">토큰</th>
+        <th class="num" style="width:12%;">크기</th>
+        <th class="num" style="width:12%;">굵기</th>
+        <th class="num" style="width:14%;">자간</th>
+        <th style="width:36%; padding-left:32px;">용도</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="t-strong">hero</td><td class="num">60px</td><td class="num">600</td><td class="num">−1.4px</td><td style="padding-left:32px;">표지 제목</td></tr>
+        <tr><td class="t-strong">title</td><td class="num">44px</td><td class="num">600</td><td class="num">−1.0px</td><td style="padding-left:32px;">슬라이드 제목</td></tr>
+        <tr><td class="t-strong">lead</td><td class="num">26px</td><td class="num">400</td><td class="num">−0.3px</td><td style="padding-left:32px;">제목 아래 리드 문장</td></tr>
+        <tr><td class="t-strong">body</td><td class="num">20px</td><td class="num">400</td><td class="num">−0.3px</td><td style="padding-left:32px;">본문·불릿</td></tr>
+        <tr><td class="t-strong">caption</td><td class="num">15px</td><td class="num">400</td><td class="num">−0.2px</td><td style="padding-left:32px;">캡션·보조 설명</td></tr>
+        <tr><td class="t-strong">eyebrow</td><td class="num">14px</td><td class="num">600</td><td class="num">+1.6px</td><td style="padding-left:32px;">제목 위 라벨 (대문자)</td></tr>
+      </tbody>
+    </table>
+    <p class="t-caption muted mt-lg">14px 이하에서는 음수 자간을 쓰지 않습니다. eyebrow만 대문자 + 양수 자간으로 예외 처리합니다.</p>
+  </div>
+  <div class="runner"><span>03 · 타이포그래피</span><span class="pg">08</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     09. PROCESS — 단계/순서
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">09</div><div class="txt">
+  <h3>단계 / 프로세스 (4스텝)</h3>
+  <p>화살표 도형 대신 <b>번호 배지 + 상단 헤어라인</b>으로 순서를 표현합니다. 배지는 32px 원형 액센트.
+     각 스텝의 상단 라인이 시각적으로 이어지면서 진행 방향을 암시합니다.
+     스텝이 5개를 넘으면 가로 배열 대신 좌측 번호 목록(2열)으로 바꾸세요.</p>
+</div></section>
+
+<div class="slide slide--parchment">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">Workflow</p>
+    <h2 class="t-title">적용 순서</h2>
+    <hr class="rule mt-lg">
+    <div class="grid g4 mt-xl" style="gap:28px; flex:1; align-content:center;">
+      <div style="border-top:2px solid var(--primary); padding-top:24px;">
+        <div style="width:32px;height:32px;border-radius:var(--r-pill);background:var(--primary);color:#fff;
+                    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;">1</div>
+        <p class="t-strong mt-md">토큰 고정</p>
+        <p class="t-caption muted mt-xs">색·타이포·간격을 먼저 확정합니다. 이후 단계에서 하드코딩된 값을 쓰지 않습니다.</p>
+      </div>
+      <div style="border-top:2px solid var(--primary); padding-top:24px;">
+        <div style="width:32px;height:32px;border-radius:var(--r-pill);background:var(--primary);color:#fff;
+                    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;">2</div>
+        <p class="t-strong mt-md">면 리듬 설계</p>
+        <p class="t-caption muted mt-xs">라이트 → 다크 → 라이트의 순서를 먼저 짭니다. 내용은 그 위에 얹습니다.</p>
+      </div>
+      <div style="border-top:2px solid var(--primary); padding-top:24px;">
+        <div style="width:32px;height:32px;border-radius:var(--r-pill);background:var(--primary);color:#fff;
+                    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;">3</div>
+        <p class="t-strong mt-md">컴포넌트 배치</p>
+        <p class="t-caption muted mt-xs">버튼은 두 문법(pill·유틸)만, 카드는 한 문법만 씁니다.</p>
+      </div>
+      <div style="border-top:2px solid var(--hairline); padding-top:24px;">
+        <div style="width:32px;height:32px;border-radius:var(--r-pill);background:var(--chip);color:var(--ink);
+                    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;">4</div>
+        <p class="t-strong mt-md">여백 검수</p>
+        <p class="t-caption muted mt-xs">이미지 주변 40px, 제목 위 64px이 확보됐는지 마지막에 확인합니다.</p>
+      </div>
+    </div>
+    <p class="t-caption muted">진행 중인 단계는 상단 라인과 배지를 액센트로, 남은 단계는 헤어라인과 회색 배지로 표시합니다.</p>
+  </div>
+  <div class="runner"><span>06 · 적용 가이드</span><span class="pg">09</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     10. QUOTE — 인용 / 메시지
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">10</div><div class="txt">
+  <h3>인용 / 한 문장 메시지 (다크)</h3>
+  <p>따옴표 이미지나 인용 박스를 쓰지 않습니다. <b>어두운 면 + 넓은 여백 + 큰 활자</b>만으로 인용임이 드러납니다.
+     문장은 40~44px / 400(굵게 하지 않음), 최대 3줄. 출처는 15px로 액센트 룰 뒤에 둡니다.
+     발표 중 잠시 멈추는 자리에 배치하세요.</p>
+</div></section>
+
+<div class="slide slide--dark3">
+  <div class="stage stage--mid">
+    <div style="max-width:940px;">
+      <p style="font-size:44px; font-weight:400; line-height:1.32; letter-spacing:-0.8px;">
+        벽이 사라지면 작품이 드러납니다. 좋은 인터페이스는 자신을 설명하지 않고,
+        <span class="accent">무엇을 보아야 하는지만</span> 알려줍니다.
+      </p>
+      <div style="display:flex; align-items:center; gap:16px; margin-top:40px;">
+        <span style="width:44px;height:2px;background:var(--primary-on-dark);display:block;"></span>
+        <p class="t-caption" style="color:var(--body-muted);">디자인 원칙 문서 · 2026</p>
+      </div>
+    </div>
+  </div>
+  <div class="runner"><span>01 · 설계 원칙</span><span class="pg">10</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     11. COMPARISON — 대비 2단 (라이트 vs 다크)
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">11</div><div class="txt">
+  <h3>대비 / 비교 — 풀블리드 2분할</h3>
+  <p>비교는 카드 두 장이 아니라 <b>화면을 좌우로 갈라 면 색을 다르게</b> 해서 표현합니다.
+     이것이 이 시스템에서 "구분선 없이 구분하기"의 가장 직접적인 사례입니다.
+     각 면의 내부 패딩은 슬라이드 여백과 동일한 88 / 64px를 유지해 두 면의 텍스트 기준선이 맞습니다.</p>
+</div></section>
+
+<div class="slide">
+  <div class="stage stage--bleed" style="flex-direction:row;">
+    <div style="flex:1; background:var(--canvas); padding:64px 56px 64px 88px;
+                display:flex; flex-direction:column; justify-content:center;">
+      <p class="t-eyebrow" style="color:var(--ink-muted-48);">Don't</p>
+      <h3 class="t-sub mt-md">장식으로 위계 만들기</h3>
+      <ul class="list t-body mt-lg">
+        <li style="padding-left:26px;">카드마다 그림자를 더해 떠 보이게 한다</li>
+        <li>구역마다 테두리와 배경 그라디언트를 넣는다</li>
+        <li>강조할 때마다 새로운 색을 하나씩 추가한다</li>
+      </ul>
+      <p class="t-caption muted mt-xl">요소가 늘수록 무엇이 중요한지 알기 어려워집니다.</p>
+    </div>
+    <div style="flex:1; background:var(--tile-1); color:var(--on-dark); padding:64px 88px 64px 56px;
+                display:flex; flex-direction:column; justify-content:center;">
+      <p class="t-eyebrow" style="color:var(--primary-on-dark);">Do</p>
+      <h3 class="t-sub mt-md">면 전환으로 위계 만들기</h3>
+      <ul class="list t-body mt-lg">
+        <li>배경색을 바꿔 섹션을 나눈다</li>
+        <li>여백을 늘려 중요한 것 주변을 비운다</li>
+        <li>액센트는 하나로 두고 위치로 강조한다</li>
+      </ul>
+      <p class="t-caption mt-xl" style="color:var(--body-muted);">더할 것을 고민하기 전에 뺄 것을 먼저 찾습니다.</p>
+    </div>
+  </div>
+  <div class="runner"><span>06 · 적용 가이드</span><span class="pg">11</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     12. FULL-BLEED VISUAL — 이미지 중심
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">12</div><div class="txt">
+  <h3>풀블리드 비주얼 + 오버레이 캡션</h3>
+  <p>이미지를 화면 끝까지 채우고 텍스트는 <b>하단 좌측에 최소한</b>으로 올립니다. 사진 위 가독성은
+     그라디언트 오버레이가 아니라 <b>사진 자체의 어두운 영역</b>에 텍스트를 놓아 확보하는 것이 원칙이지만,
+     실무에서는 하단 40% 정도에 단색 반투명 검정을 허용합니다. 우상단 원형 컨트롤은 44×44px, 반투명 회색 칩.</p>
+</div></section>
+
+<div class="slide slide--black">
+  <div class="stage stage--bleed" style="position:relative;">
+    <div style="position:absolute; inset:0; background:
+         repeating-linear-gradient(135deg,#2a2a2c 0 28px,#272729 28px 56px);"></div>
+    <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+                color:rgba(255,255,255,.34); font-size:16px;">풀블리드 이미지 영역 · 1280 × 664</div>
+    <div style="position:absolute; top:32px; right:32px; display:flex; gap:12px;">
+      <span class="btn btn-circle">‹</span><span class="btn btn-circle">›</span>
+    </div>
+    <div style="position:absolute; left:0; right:0; bottom:0; padding:56px 88px 40px;
+                background:linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,0));">
+      <p class="t-eyebrow" style="color:var(--primary-on-dark);">Case study</p>
+      <h3 class="t-sub mt-sm" style="max-width:760px;">사진이 배경이 아니라 주인공일 때의 레이아웃</h3>
+      <p class="t-caption mt-xs" style="color:var(--body-muted);">텍스트 블록은 화면 폭의 60%를 넘지 않게 유지합니다.</p>
+    </div>
+  </div>
+  <div class="runner"><span>사례</span><span class="pg">12</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     13. COLOR TOKENS — 컬러 레퍼런스
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">13</div><div class="txt">
+  <h3>컬러 토큰 레퍼런스</h3>
+  <p>색을 설명하는 슬라이드. 스와치는 <b>높이 64px, radius 8px</b>, 아주 밝은 색에는 #f0f0f0 테두리를 둡니다.
+     아래에 이름(14px/600) + HEX + 용도(13px)를 3줄로 붙입니다. 한 행에 4~5개, 최대 2행.
+     이 슬라이드는 PPTX로 옮길 때 단순 사각형 + 텍스트 상자로 1:1 변환됩니다.</p>
+</div></section>
+
+<div class="slide">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">Tokens</p>
+    <h2 class="t-title">컬러 팔레트</h2>
+    <hr class="rule mt-lg">
+
+    <p class="t-capstr muted mt-xs" style="letter-spacing:.6px;">ACCENT</p>
+    <div class="grid g4 mt-sm" style="gap:20px;">
+      <div><div class="sw" style="background:#0066cc;"></div><p class="sw-row"><b>Action Blue · #0066cc</b>모든 링크와 기본 CTA</p></div>
+      <div><div class="sw" style="background:#0071e3;"></div><p class="sw-row"><b>Focus Blue · #0071e3</b>포커스 링 2px</p></div>
+      <div><div class="sw" style="background:#2997ff;"></div><p class="sw-row"><b>Sky Blue · #2997ff</b>다크 면 위의 링크</p></div>
+      <div><div class="sw" style="background:#1d1d1f;"></div><p class="sw-row"><b>Ink · #1d1d1f</b>모든 본문·제목 텍스트</p></div>
+    </div>
+
+    <p class="t-capstr muted mt-xl" style="letter-spacing:.6px;">SURFACE</p>
+    <div class="grid g4 mt-sm" style="gap:20px;">
+      <div><div class="sw" style="background:#ffffff;"></div><p class="sw-row"><b>Canvas · #ffffff</b>기본 라이트 면</p></div>
+      <div><div class="sw" style="background:#f5f5f7;"></div><p class="sw-row"><b>Parchment · #f5f5f7</b>교차 라이트 면·푸터</p></div>
+      <div><div class="sw" style="background:#272729;"></div><p class="sw-row"><b>Tile · #272729</b>기본 다크 면</p></div>
+      <div><div class="sw" style="background:#000000;"></div><p class="sw-row"><b>Black · #000000</b>내비·영상 프레임 전용</p></div>
+    </div>
+
+    <p class="t-caption muted mt-lg">
+      #7a7a7a(비활성·법적 고지)와 #e0e0e0(헤어라인)은 UI 전용 회색으로, 본문 텍스트에는 쓰지 않습니다.
+    </p>
+  </div>
+  <div class="runner"><span>02 · 컬러</span><span class="pg">13</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     14. COMPONENT SHEET — 컴포넌트 레퍼런스
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">14</div><div class="txt">
+  <h3>컴포넌트 시트</h3>
+  <p>덱 안에서 UI를 직접 보여줘야 할 때 쓰는 슬라이드. 버튼 문법은 <b>pill(액션)</b>과
+     <b>radius 8px 사각(유틸리티)</b> 두 가지뿐이고 그 사이 값은 쓰지 않습니다(예외: Pearl 캡슐 11px).
+     각 샘플 아래에 15px 캡션으로 토큰명과 패딩을 적어두면 구현자가 바로 옮길 수 있습니다.</p>
+</div></section>
+
+<div class="slide slide--parchment">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">Components</p>
+    <h2 class="t-title">버튼과 입력 문법</h2>
+    <hr class="rule mt-lg">
+    <div class="grid g3 mt-md" style="gap:36px 40px; align-items:start;">
+      <div>
+        <span class="btn btn-primary">Buy</span>
+        <p class="t-caption muted mt-sm"><b style="color:var(--ink);">button-primary</b><br>pill · 12/24px · 18px/400 · #0066cc</p>
+      </div>
+      <div>
+        <span class="btn btn-ghost">Learn more</span>
+        <p class="t-caption muted mt-sm"><b style="color:var(--ink);">button-ghost</b><br>pill · 1px #0066cc 테두리 · 투명 배경</p>
+      </div>
+      <div>
+        <span class="btn btn-hero">Shop now</span>
+        <p class="t-caption muted mt-sm"><b style="color:var(--ink);">button-hero</b><br>pill · 16/32px · 19px/<b>300</b> (드문 300)</p>
+      </div>
+      <div>
+        <span class="btn btn-utility">Sign in</span>
+        <p class="t-caption muted mt-sm"><b style="color:var(--ink);">button-utility</b><br>radius 8px · 9/16px · #1d1d1f</p>
+      </div>
+      <div>
+        <span class="btn btn-pearl">Compare</span>
+        <p class="t-caption muted mt-sm"><b style="color:var(--ink);">button-pearl</b><br>radius 11px · 3px #f0f0f0 링 · #fafafc</p>
+      </div>
+      <div>
+        <span class="btn btn-circle">✕</span>
+        <p class="t-caption muted mt-sm"><b style="color:var(--ink);">icon-circular</b><br>44×44 · rgba(210,210,215,.64)</p>
+      </div>
+      <div>
+        <span class="chip">128GB &nbsp;<span class="muted">+0원</span></span>
+        <p class="t-caption muted mt-sm"><b style="color:var(--ink);">option-chip</b><br>pill · 12/18px · 1px #e0e0e0</p>
+      </div>
+      <div>
+        <span class="chip chip--selected">256GB &nbsp;<span class="muted">+150,000원</span></span>
+        <p class="t-caption muted mt-sm"><b style="color:var(--ink);">option-chip · selected</b><br>2px #0071e3</p>
+      </div>
+      <div>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:var(--r-pill);
+                    height:46px;padding:0 20px;display:flex;align-items:center;gap:10px;
+                    font-size:17px;color:var(--ink-muted-48);">⌕ 검색</div>
+        <p class="t-caption muted mt-sm"><b style="color:var(--ink);">search-input</b><br>pill · 높이 44~46px · 17px</p>
+      </div>
+    </div>
+    <p class="t-caption muted mt-lg">누름 상태는 모든 버튼 공통으로 <b>transform: scale(0.95)</b>. 호버 상태는 정의하지 않습니다.</p>
+  </div>
+  <div class="runner"><span>04 · 컴포넌트</span><span class="pg">14</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     15. DO / DON'T — 체크리스트
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">15</div><div class="txt">
+  <h3>체크리스트 (Do / Don't)</h3>
+  <p>초록/빨강 아이콘을 쓰지 않습니다 — 두 번째 색을 도입하는 순간 단일 액센트 원칙이 깨집니다.
+     대신 <b>Do는 액센트 색 라벨 + 채워진 점</b>, <b>Don't는 회색 라벨 + 빈 원</b>으로 구분합니다.
+     좌우 2열, 각 4~5항목. 항목당 한 줄을 넘지 않게 씁니다.</p>
+</div></section>
+
+<div class="slide">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">Guidelines</p>
+    <h2 class="t-title">지켜야 할 것과 피해야 할 것</h2>
+    <hr class="rule mt-lg">
+    <div class="split mt-md" style="gap:64px; align-items:start;">
+      <div>
+        <p class="t-tagline accent">Do</p>
+        <ul class="list t-body mt-md">
+          <li>본문은 한 덱 전체에서 20px / 400 하나로 통일</li>
+          <li>제목에 음수 자간(−0.8 ~ −1.4px)을 반드시 적용</li>
+          <li>섹션 전환은 배경색 변경으로 처리</li>
+          <li>액션은 pill, 유틸리티는 radius 8px 사각</li>
+          <li>이미지 주변 최소 40px 확보</li>
+        </ul>
+      </div>
+      <div>
+        <p class="t-tagline muted">Don't</p>
+        <ul class="list list--dont t-body mt-md">
+          <li>두 번째 액센트 컬러 추가</li>
+          <li>카드·버튼·텍스트에 그림자 적용</li>
+          <li>장식용 그라디언트 배경 사용</li>
+          <li>본문에 굵기 500 사용 (사다리에 없음)</li>
+          <li>본문 행간을 1.47 아래로 압축</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="runner"><span>06 · 적용 가이드</span><span class="pg">15</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     16. CLOSING — 마무리
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">16</div><div class="txt">
+  <h3>마무리 / 연락</h3>
+  <p>표지와 같은 문법을 어두운 면에서 반복해 덱을 닫습니다. 수직 중앙 정렬, 한 문장 + 연락처 한 줄.
+     "감사합니다"만 있는 빈 슬라이드보다 <b>다음 행동</b>을 한 줄 적는 편이 낫습니다. 러너는 생략합니다.</p>
+</div></section>
+
+<div class="slide slide--dark">
+  <div class="stage" style="justify-content:space-between;">
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <p class="t-eyebrow eyebrow">Thank you</p>
+      <h2 class="t-hero mt-md" style="max-width:860px;">빼는 것이<br>디자인이 되는 지점까지.</h2>
+      <p class="t-lead mt-lg" style="max-width:640px; color:var(--body-muted);">
+        토큰 문서와 구현 스니펫은 아래 저장소에서 확인하실 수 있습니다.
+      </p>
+      <div class="mt-xl"><span class="btn btn-primary">토큰 문서 열기</span></div>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end;
+                border-top:1px solid var(--hairline-on-dark); padding-top:24px;">
+      <p class="t-caption" style="color:var(--body-muted);">design-system@example.com</p>
+      <p class="t-fine" style="color:var(--body-muted);">Apple Design Reference · v1.0 · 2026</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     부록: PPTX 변환 메모
+     ══════════════════════════════════════════════════════════ -->
+<section class="spec"><div class="no">17</div><div class="txt">
+  <h3>부록 — PPTX 변환 치트시트</h3>
+  <p>아래 슬라이드는 이 덱을 python-pptx 등으로 옮길 때 참고할 수치 요약입니다. 실제 발표 덱에는 포함하지 마세요.</p>
+</div></section>
+
+<div class="slide slide--pearl">
+  <div class="stage">
+    <p class="t-eyebrow eyebrow">Appendix</p>
+    <h2 class="t-title">PPTX 변환 기준값</h2>
+    <hr class="rule mt-lg">
+    <div class="split" style="gap:56px; align-items:start;">
+      <div>
+        <p class="t-capstr muted" style="letter-spacing:.6px;">GEOMETRY</p>
+        <table class="tbl mt-sm" style="font-size:17px;">
+          <tbody>
+            <tr><td>슬라이드</td><td class="num">1280 × 720px = 13.333 × 7.5in</td></tr>
+            <tr><td>좌우 여백</td><td class="num">88px = 0.917in</td></tr>
+            <tr><td>상하 여백</td><td class="num">64px = 0.667in</td></tr>
+            <tr><td>본문 최대 폭</td><td class="num">860 ~ 900px</td></tr>
+            <tr><td>러너 높이</td><td class="num">56px = 0.583in</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p class="t-capstr muted" style="letter-spacing:.6px;">CONVERSION</p>
+        <ul class="list t-body mt-sm" style="font-size:18px;">
+          <li>px → inch = px ÷ 96 · px → EMU = px × 9525</li>
+          <li>px → pt = px × 0.75 (제목 44px ≈ 33pt, 본문 20px = 15pt)</li>
+          <li>자간은 PPTX에서 pt 단위 — −1.0px ≈ −0.75pt</li>
+          <li>Arial은 Windows·macOS·Office 공통 내장이라 치환 위험이 없습니다</li>
+          <li>그림자는 제품 이미지 도형에만: blur 30px, offset 3/5px, 22% 검정</li>
+        </ul>
+      </div>
+    </div>
+    <p class="t-caption muted mt-xl" style="border-top:1px solid var(--hairline); padding-top:20px;">
+      PPTX에는 CSS flex가 없으므로, 각 슬라이드를 옮길 때는 위 여백 기준으로 <b>절대 좌표</b>를 계산해 배치하세요.
+      제목 블록은 좌측 88px / 상단 64px에서 시작하고, 러너는 하단에서 56px 높이로 고정됩니다.
+    </p>
+  </div>
+  <div class="runner"><span>부록</span><span class="pg">A1</span></div>
+</div>
+
+<div style="height:80px;"></div>
+</body>
+</html>
