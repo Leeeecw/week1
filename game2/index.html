@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slither 지렁이 게임</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="hud">
+    <div>길이: <span id="hud-length">0</span></div>
+    <div>점수: <span id="hud-score">0</span></div>
+    <div>최고: <span id="hud-high">0</span></div>
+    <ol id="hud-rank"></ol>
+  </div>
+
+  <div id="overlay-start" class="overlay">
+    <h1>지렁이 게임</h1>
+    <p>마우스로 방향을 조작하고, 클릭 또는 스페이스로 부스트하세요.</p>
+    <p>최고 점수: <span id="start-high">0</span></p>
+    <button id="btn-start">시작</button>
+  </div>
+
+  <div id="overlay-over" class="overlay hidden">
+    <h1>게임 오버</h1>
+    <p>점수: <span id="over-score">0</span></p>
+    <p id="over-newhigh" class="hidden">🎉 새로운 최고 기록!</p>
+    <p>최고 점수: <span id="over-high">0</span></p>
+    <button id="btn-restart">다시 시작</button>
+  </div>
+
+  <script type="module" src="js/main.js?v=1788845795"></script>
+  <script src="js/__selftest.js?v=1788845795"></script>
+</body>
+</html>
